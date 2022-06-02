@@ -88,7 +88,7 @@ English text
   Script to create VMware DRS Groups and rules based on VMware Tags and a rules file. 
   
 .DESCRIPTION 
-  The scripts reads an Rules file (default : .\drs_rules\drs.csv), and Tags placed on VMs and Hosts.
+  The scripts reads a Rules file (default : .\drs_rules\drs.csv), and Tags placed on VMs and Hosts.
   
   Based on this, it creates all needed DRS Groups and Rules.
   
