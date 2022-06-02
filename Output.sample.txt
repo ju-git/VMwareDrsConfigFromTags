@@ -1,0 +1,104 @@
+PS D:\DRS_TAGS> .\drsConfigFromTags.ps1
+File
+DRS rules file found : D:\DRS_TAGS\drs_rules\drs.csv.
+
+WARNING : Unable to open the credentials file '.\script_config\powercliCreds.xml'.
+Do you want to create it ? (you will be prompted for vCenter Credentials).
+  Type YES or NO : YES
+YES
+
+applet de commande Get-Credential à la position 1 du pipeline de la commande
+Fournissez des valeurs pour les paramètres suivants :
+Credential
+
+File
+Credentials file found : D:\DRS_TAGS\script_config\powercliCreds.xml
+
+WARNING : Unable to open the configuration file '.\script_config\script.conf'.
+Do you want to create it ? (you will be asked for the vCenter name (FQDN or IP).
+  vCenter FQDN or IP Address : : myVcenter.company.corp
+
+File
+Config file found : D:\DRS_TAGS\script_config\script.conf
+  vCenter : myVcenter.company.corp.
+
+vCenter
+Connected to vCenter : myVcenter.company.corp
+
+Cluster
+  No cluster provided. Working all clusters listed in the rules file.
+
+RuleTest
+@{DrsRuleEnabled=true; DrsClusterName=Cluster JUA; DrsRuleType=KeepTogether; DrsVmGroup=GRP1; DrsHostGroup=HOSTGRP; DrsRuleComment=}
+Rule Type Allowed.
+Working on Host Tag 'HOSTGRP' for rule of type 'KeepTogether'.
+  Checking Hosts with needed Tag in the cluster.
+  Hosts with needed TAG found.
+Working on VM Tag 'GRP1' for rule of type 'KeepTogether'.
+  Checking VMs with needed Tag in the cluster.
+  2 VM(s) with needed TAG found.
+  Enough VM with needed TAG found.
+
+RuleTest
+@{DrsRuleEnabled=true; DrsClusterName=Cluster JUA; DrsRuleType=MustRunOn; DrsVmGroup=GRP2; DrsHostGroup=HOSTGRP; DrsRuleComment=}
+Rule Type Allowed.
+Working on Host Tag 'HOSTGRP' for rule of type 'MustRunOn'.
+  Checking Hosts with needed Tag in the cluster.
+  Hosts with needed TAG found.
+Working on VM Tag 'GRP2' for rule of type 'MustRunOn'.
+  Checking VMs with needed Tag in the cluster.
+  1 VM(s) with needed TAG found.
+  Enough VM with needed TAG found.
+
+HostGroup
+@{DrsRuleEnabled=true; DrsClusterName=Cluster JUA; DrsRuleType=KeepTogether; DrsVmGroup=GRP1; DrsHostGroup=HOSTGRP; DrsRuleComment=}
+Working on Host Group 'TAG_HOSTGRP'.
+Updating Host Group 'TAG_HOSTGRP'.
+  No ESXi host to remove.
+  No ESXi host to add.
+
+HostGroup
+@{DrsRuleEnabled=true; DrsClusterName=Cluster JUA; DrsRuleType=MustRunOn; DrsVmGroup=GRP2; DrsHostGroup=HOSTGRP; DrsRuleComment=}
+  No action when DrsHostGroup was already computed by a previous rule.
+
+VMGroup
+@{DrsRuleEnabled=true; DrsClusterName=Cluster JUA; DrsRuleType=KeepTogether; DrsVmGroup=GRP1; DrsHostGroup=HOSTGRP; DrsRuleComment=}
+  No action when DRS Rules Type = 'KeepTogether'
+
+VMGroup
+@{DrsRuleEnabled=true; DrsClusterName=Cluster JUA; DrsRuleType=MustRunOn; DrsVmGroup=GRP2; DrsHostGroup=HOSTGRP; DrsRuleComment=}
+Working on VM Group for a VM to Host rule of Type = 'MustRunOn'.
+Updating VM Group 'TAG_GRP2'.
+  No VM to remove.
+  No VM to add.
+
+DRSRule
+@{DrsRuleEnabled=true; DrsClusterName=Cluster JUA; DrsRuleType=KeepTogether; DrsVmGroup=GRP1; DrsHostGroup=HOSTGRP; DrsRuleComment=}
+Working on rule of Rule Type = 'KeepTogether'.
+  Existing rule 'TAG KeepTogether GRP1' has not changed in the rules file.
+
+VM To Host Rule
+@{DrsRuleEnabled=true; DrsClusterName=Cluster JUA; DrsRuleType=MustRunOn; DrsVmGroup=GRP2; DrsHostGroup=HOSTGRP; DrsRuleComment=}
+Working on rule of Rule Type = 'MustRunOn'.
+  Existing rule 'TAG GRP2 MustRunOn HOSTGRP' has not changed in the rules file.
+
+RemoveDRSRule
+Working on rule : TAG KeepTogether GRP1
+  The Rule was still found in the Rules File. No action.
+
+RemoveDrsVMHostRule
+Working on rule : TAG GRP2 MustRunOn HOSTGRP
+  The VM to Host Rule was still found in the Rules File. No action.
+
+RemoveDrsClusterGroup
+Working on DRS Group : TAG_HOSTGRP
+  The DRS Group was still found in the Rules File. No action.
+
+RemoveDrsClusterGroup
+Working on DRS Group : TAG_GRP2
+  The DRS Group was still found in the Rules File. No action.
+
+vCenter
+Disconnected from vCenter : myVcenter.company.corp
+
+End of script.

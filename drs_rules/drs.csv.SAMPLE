@@ -1,0 +1,22 @@
+"DrsRuleEnabled" ; "DrsClusterName"  ;   "DrsRuleType"             ; "DrsVmGroup"                    ; "DrsHostGroup"                         ; "DrsRuleComment" ;
+
+"true"           ; "IntCluster"      ; "KeepSeparated"             ; "vCenters in VCHA"              ; ""                                     ; "" 
+"true"           ; "IntCluster"      ; "KeepSeparated"             ; "Domain Controlers Prod"        ; ""                                     ; "" 
+"true"           ; "IntCluster"      ; "MustNotRunOn"              ; "Domain Controlers Prod"        ; "ESXi_with_the_random_PSOD_issue"      ; "" 
+"true"           ; "IntCluster"      ; "KeepSeparated"             ; "App servers Appli XYZ"         ; ""                                     ; "" 
+"true"           ; "IntCluster"      ; "KeepTogether"              ; "App XXY"                       ; ""                                     ; "" 
+"true"           ; "IntCluster"      ; "MustRunOn"                 ; "CrazyDB Standard"              ; "CrazyDB Standard Lic"                 ; "VMs with CrazyDB MUST run on licenced hosts. AUTHOR OF THIS SCRIPT DECLINES ANY RESPONSABILITY FOR YOUR CrazyDB CONFORMITY, OR ANY KIND LICENCE CONFORMITY ISSUE. CHECK THIS WITH YOUR LEGAL TEAM."
+"true"           ; "IntCluster"      ; "MustRunOn"                 ; "CrazyDB Enterprise"            ; "CrazyDB Enterprise Lic"               ; "VMs with CrazyDB MUST run on licenced hosts. AUTHOR OF THIS SCRIPT DECLINES ANY RESPONSABILITY FOR YOUR CrazyDB CONFORMITY, OR ANY KIND LICENCE CONFORMITY ISSUE. CHECK THIS WITH YOUR LEGAL TEAM."
+"true"           ; "DviCluster"      ; "KeepSeparated"             ; "DVI Team France"               ; ""                                     ; "" 
+"true"           ; "DviCluster"      ; "KeepSeparated"             ; "DVI Team Germany"              ; ""                                     ; "" 
+"true"           ; "DviCluster"      ; "KeepSeparated"             ; "DVI Team Poland"               ; ""                                     ; "" 
+"true"           ; "DviCluster"      ; "KeepSeparated"             ; "DVI Team Ukraine"              ; ""                                     ; "" 
+"true"           ; "DviCluster"      ; "KeepSeparated"             ; "DVI Team Portugal"             ; ""                                     ; "" 
+"true"           ; "DviCluster"      ; "KeepSeparated"             ; "DVI Team Monaco"               ; ""                                     ; "" 
+"true"           ; "DviCluster"      ; "MustNotRunOn"              ; "DVI Team Monaco"               ; "ESXi_with_the_random_PSOD_issue"      ; "" 
+"true"           ; "DviCluster"      ; "KeepSeparated"             ; "DVI Team Andora"               ; ""                                     ; "" 
+"true"           ; "ClusterUSA-Asia" ; "KeepSeparated"             ; "DVI Team Colorado"             ; ""                                     ; "" 
+"true"           ; "ClusterUSA-Asia" ; "KeepSeparated"             ; "DVI Team NJ"                   ; ""                                     ; "" 
+"true"           ; "ClusterUSA-Asia" ; "KeepSeparated"             ; "DVI Team Canada"               ; ""                                     ; "" 
+"true"           ; "ClusterUSA-Asia" ; "KeepSeparated"             ; "DVI Team Okinawa"              ; ""                                     ; "" 
+

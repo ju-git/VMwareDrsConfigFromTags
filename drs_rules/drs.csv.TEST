@@ -1,0 +1,4 @@
+"DrsRuleEnabled" ; "DrsClusterName" ;   "DrsRuleType"            ; "DrsVmGroup"                    ; "DrsHostGroup"                        ; "DrsRuleComment" ;
+
+"true"          ; "Cluster JUA"    ; "KeepTogether"              ; "GRP1"                         ; "HOSTGRP"                              ; "" 
+"true"          ; "Cluster JUA"    ; "MustRunOn"                 ; "GRP2"                         ; "HOSTGRP"                              ; ""
