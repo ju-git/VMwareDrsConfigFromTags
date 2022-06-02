@@ -98,9 +98,15 @@ English text
   
   FAQ : 
   
+ 
   Q: What is this script ?
   A: It creates DRS Rules based on a rules file and tags placed on VMs and hosts.
 
+  Q: in 3 lines, how to use it ?
+  A: Create a TAG for each VM and host group you need, and assign TAGs to the wanted VM and hosts.
+     Then, write the .\drs_rules\drs.csv file, describing the DRS rules you want to create. (Look at the sample file).
+     Then, run the script, it will create all your DRS configuration.
+     
   Q: Why did you create it ?
   A: If you have lots of VMs/Clusters/hosts, maintaining the DRS settings is boring, and everything is manual.
   
