@@ -19,7 +19,7 @@ Software hosted at : https://github.com/ju-git/VMwareDrsConfigFromTags
 
 ==================== Changelog ==============================================
 
-Version : 2022.06.02.0001
+Version : 2022.06.03.0001
     - Initial release.
     - Change Rules and VM to host rules only when enable status or related objects were changed.
     - Avoid redundant updates when a VM or Host Group is used in more than one rule.
@@ -386,15 +386,15 @@ if ( $DeleteEveryRuleAndGroup )
   
   if ( $paramCluster )
   {
-    $drsRulesToDelete         = Get-Cluster $paramCluster | Get-DrsRule
-    $drsVMHostRulesToDelete   = Get-Cluster $paramCluster | Get-DrsVMHostRule
-    $drsClusterGroupsToDelete = Get-Cluster $paramCluster | Get-DrsClusterGroup
+    $drsRulesToDelete         = Get-Cluster $paramCluster | Get-DrsRule $prefixForDrsRules*
+    $drsVMHostRulesToDelete   = Get-Cluster $paramCluster | Get-DrsVMHostRule $prefixForDrsRules*
+    $drsClusterGroupsToDelete = Get-Cluster $paramCluster | Get-DrsClusterGroup $prefixForDrsGroups* 
   }
   else
   {
-    $drsRulesToDelete         = Get-Cluster | Get-DrsRule
-    $drsVMHostRulesToDelete   = Get-Cluster | Get-DrsVMHostRule
-    $drsClusterGroupsToDelete = Get-Cluster | Get-DrsClusterGroup
+    $drsRulesToDelete         = Get-Cluster | Get-DrsRule $prefixForDrsRules*
+    $drsVMHostRulesToDelete   = Get-Cluster | Get-DrsVMHostRule $prefixForDrsRules*
+    $drsClusterGroupsToDelete = Get-Cluster | Get-DrsClusterGroup $prefixForDrsGroups*
   }
   
   Write-Host ""
