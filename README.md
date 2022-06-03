@@ -20,22 +20,32 @@ VMware DRS config from Tags.
   3/ Run the script.  
   
 ### FAQ : 
+
 Q: What is this script ?
+
 A: It creates DRS Rules based on a rules file and tags placed on VMs and hosts.
 
+
 Q: in 3 lines, how to use it ?
+
 A: Assign Tags on VM and host to define your groups.
      Then, write the .\drs_rules\drs.csv file : describe the DRS rules you want to create. (Look at the sample file).
      Then, run the script..
 
+
 Q: Why did you create it ?
+
 A: If you have lots of VMs/Clusters/hosts, maintaining the DRS settings is boring, and everything is manual.
 
+
 Q: Why not a Tags-Only solution ?
+
 A: It was my original idea/goal, but was found to be either too limited (only one rule
    for each VM group) or too complicated (need to create per-rule specific tags and assignlots of tags).
-  
+
+
 Q: When should I run this script ?
+
 A: Just after you assigned/removed tags used for your rules, or changed/added rules in the rules file.
     If you want you can run it periodicaly, no issue.
      You can also start it from the VCBA when a tag is added.
