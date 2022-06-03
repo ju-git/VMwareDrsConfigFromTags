@@ -1,18 +1,25 @@
+VMware DRS config from Tags.
+----
 
-
-.SYNOPSIS 
+### Synopsys 
   Script to create VMWware DRS Groups and rules based on VMware Tags and a rules file. 
 
-.DESCRIPTION 
+### How it works ? 
   This scripts reads a Rules file (default : .\drs_rules\drs.csv), and the Tags placed on VMs and Hosts.
   
   Based on this, it creates all needed DRS Groups and Rules.
   
   The script is idempotent, when it's re-run, it will update what needed,
   or do nothing if nothing changed in the inputs.
+
+### Quick start
+  1/ Assign Tags on VM and host to define your groups.
+
+  2/ Write the .\drs_rules\drs.csv file : describe the DRS rules you want to create. (Look at the sample file).
+
+  3/ Run the script.  
   
-  
-  FAQ : 
+### FAQ : 
   
   Q: What is this script ?
   A: It creates DRS Rules based on a rules file and tags placed on VMs and hosts.
@@ -20,7 +27,7 @@
   Q: in 3 lines, how to use it ?
   A: Assign Tags on VM and host to define your groups.
      Then, write the .\drs_rules\drs.csv file : describe the DRS rules you want to create. (Look at the sample file).
-     Then, run the script, it will create all your DRS configuration on the vCenter.
+     Then, run the script..
 
   Q: Why did you create it ?
   A: If you have lots of VMs/Clusters/hosts, maintaining the DRS settings is boring, and everything is manual.
@@ -35,11 +42,11 @@
      If you want you can run it periodicaly, no issue.
      You can also start it from the VCBA when a tag is added.
   
-.NOTES 
+### Notes 
   Script created because vSphere only allows to create groups and rules based on static VM lists, 
   hard to maintain when you have lots of VMs.
 
-.EXAMPLE 
+### Examples 
 
   Simple syntax :
 
@@ -51,31 +58,29 @@
   BEFORE FIRST LAUNCH, you have to create the .\drs_rules\drs.csv file. The folder contain sample files.
   
 
-.EXAMPLE 
-
   Working on only one of the clusters listed in the Rules File : 
 
   .\createDrsTagRules.ps1 -Cluster ClusterName
 
-.EXAMPLE 
+
 
   Working with an alternative Rules file :
 
   .\createDrsTagRules.ps1 -DrsRulesFile .\Path\To\CustomFile.csv 
   
-.EXAMPLE 
+
 
   Working with an alternative Credentials file :
 
   .\createDrsTagRules.ps1 -CredentialsFile .\Path\To\myCreds.file 
 
-.EXAMPLE 
+
 
   Exit after the Rules Files was tested (No modification is performed on the vCenter) : 
 
   .\createDrsTagRules.ps1 -DrsRulesFileValidationOnly 
 
-.EXAMPLE 
+
 
   Delete DRS Groups and Rules created by the sctipt.
   
@@ -85,41 +90,7 @@
   
   A list is displayed, and the user has to confirm before anything is deleted.
 
-.PARAMETER Cluster
-  Name of a specific cluster. The rules from the Rules File will be filtered to work only on the rules for this cluster.
-  If the parameter is not used, the default behaviour is to create all rules found in the Rules File.
-
-.PARAMETER DrsRulesFile
-  Name of the file containing the DRS Rules. By default, .\drs_rules\drs.csv
-
-.PARAMETER CredentialsFile
-  Name of the file containing the credentials to acces the vCenter. By default, .\script_config\powercliCreds.xml
-  If the file doesn't exist, credentials will be asked and saved in the file.
-
-.PARAMETER DeleteEveryRuleAndGroup
-  If this switch is used or set to $true, the Remove code will be executed.
-  It will remove all Rules/VM to Host Rules/groups named after the Prefix hardcoded in the script ("TAG")
-
-.PARAMETER DrsRulesFileValidationOnly
-  If this switch is used or set to $true, the script will exit after the validation step.
-  No modification will be performed on the vSphere server.
-
-.PARAMETER ForceInvalidDrsRulesFile
-  If this switch is used or set to $true, the script will continue, event if the content of the DRS Rules file is not correct.
-  (NOT IMPLEMENTED YET. THIS SWITCH WILL JUST SKIP THE VALIDATION STEP)
-
-.PARAMETER SkipDrsRulesFileValidation
-  If this switch is used or set to $true, the content of the DRS Rules file will be not be checked against incorrect entries.
-
-.PARAMETER KeepLegacyDrsElements
-  If this switch is used or set to $true, remove old elements step will be skiped.
-  
-.LINK 
-  https://github.com/ju-git/VMwareDrsConfigFromTags
-
-
-
-==================== Author =================================================
+### Author
 
 Original script : Julien AILHAUD -  Mail :    julien 
                                               at ailhaud dot com
@@ -136,7 +107,7 @@ Original script : Julien AILHAUD -  Mail :    julien
 
 Software hosted at : https://github.com/ju-git/VMwareDrsConfigFromTags
 
-==================== Changelog ==============================================
+### Changelog
 
 Version : 2022.06.03.0001
     - Initial release.
@@ -145,7 +116,7 @@ Version : 2022.06.03.0001
     - Display a warning when the DrsRulesFile AND DeleteEveryRuleAndGroup params are given, 
       to point that the delete code don't read things from the Rules file.
 
-==================== License =================================================
+### License
 
 BSD 3-Clause License
 
@@ -178,7 +149,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-==================== Todo list ========================================
+### Todo list
 
 Known issues : 
     - Not tested on complex VMware setup (Linked Mode, ...)
