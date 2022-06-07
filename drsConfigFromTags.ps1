@@ -19,6 +19,9 @@ Software hosted at : https://github.com/ju-git/VMwareDrsConfigFromTags
 
 ==================== Changelog ==============================================
 
+Version : 2022.06.07.0001
+    - Skip Rules file check when the Delete option is used.
+
 Version : 2022.06.03.0001
     - Initial release.
     - Change Rules and VM to host rules only when enable status or related objects were changed.
@@ -152,7 +155,7 @@ English text
 
 .EXAMPLE 
 
-  Exit after the Rules Files was tested (No modification is performed on the vCenter).
+  Exit after the Rules File was tested (No modification is performed on the vCenter).
 
   .\createDrsTagRules.ps1 -DrsRulesFileValidationOnly 
 
@@ -251,16 +254,19 @@ else
   $DrsRulesFileProvidedByCommand = $true
 }
 
-try { Get-ChildItem $DrsRulesFile -ErrorAction Stop | Out-Null }
-catch
+if ( $DeleteEveryRuleAndGroup -eq $false )  # The presence of the Rules file is not checked when DeleteEveryRuleAndGroup option is used, as the rules file is not used.
 {
-  Write-Error   "Unable to open the rules file '$DrsRulesFile'. Exiting."
-  exit
-}
+  try { Get-ChildItem $DrsRulesFile -ErrorAction Stop | Out-Null }
+  catch
+  {
+    Write-Error   "Unable to open the rules file '$DrsRulesFile'. Exiting."
+    exit
+  }
 
-$testedDrsRulesFile = Get-ChildItem $DrsRulesFile
-Write-Host "File"
-Write-Host "DRS rules file found : $testedDrsRulesFile."
+  $testedDrsRulesFile = Get-ChildItem $DrsRulesFile
+  Write-Host "File"
+  Write-Host "DRS rules file found : $testedDrsRulesFile."
+}
 
 #
 # Testing that the Credentials file exists
@@ -378,7 +384,7 @@ if ( $DeleteEveryRuleAndGroup )
 {
   if ( $DrsRulesFileProvidedByCommand )
   {
-    Write-Warning "The DeleteEveryRuleAndGroup functionnality doesn't work with the rule files."
+    Write-Warning "The DeleteEveryRuleAndGroup functionnality doesn't work with the rules file."
     Write-Warning "You can't invoke the script with both -DeleteEveryRuleAndGroup and -DrsRulesFile parameters."
     Write-Error "-DeleteEveryRuleAndGroup and -DrsRulesFile parameters found in command line. Exiting."
     exit

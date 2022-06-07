@@ -29,8 +29,11 @@ A: It creates DRS Rules based on a rules file and tags placed on VMs and hosts.
 Q: in 3 lines, how to use it ?
 
 A: Assign Tags on VM and host to define your groups.
+     
      Then, write the .\drs_rules\drs.csv file : describe the DRS rules you want to create. (Look at the sample file).
+     
      Then, run the script..
+
 
 
 Q: Why did you create it ?
@@ -38,10 +41,12 @@ Q: Why did you create it ?
 A: If you have lots of VMs/Clusters/hosts, maintaining the DRS settings is boring, and everything is manual.
 
 
+
 Q: Why not a Tags-Only solution ?
 
 A: It was my original idea/goal, but was found to be either too limited (only one rule
    for each VM group) or too complicated (need to create per-rule specific tags and assignlots of tags).
+
 
 
 Q: When should I run this script ?
@@ -64,7 +69,8 @@ A: Just after you assigned/removed tags used for your rules, or changed/added ru
   start, and will be saved in the .\script_config\ folder.
 
   BEFORE FIRST LAUNCH, you have to create the .\drs_rules\drs.csv file. The folder contain sample files.
-  
+
+
 
   Working on only one of the clusters listed in the Rules File : 
 
@@ -72,10 +78,12 @@ A: Just after you assigned/removed tags used for your rules, or changed/added ru
 
 
 
+
   Working with an alternative Rules file :
 
   .\createDrsTagRules.ps1 -DrsRulesFile .\Path\To\CustomFile.csv 
   
+
 
 
   Working with an alternative Credentials file :
@@ -116,6 +124,9 @@ Original script : Julien AILHAUD -  Mail :    julien
 Software hosted at : https://github.com/ju-git/VMwareDrsConfigFromTags
 
 ### Changelog
+
+Version : 2022.06.07.0001
+    - Skip Rules file check when the Delete option is used.
 
 Version : 2022.06.03.0001
     - Initial release.
@@ -162,19 +173,29 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Known issues : 
     - Not tested on complex VMware setup (Linked Mode, ...)
 
+
 Core code
     - Replace -match by -eq when it's appropriate
+
     - Use Functions ? :)
+
     - Use local credential store of Windows ?
+
     - Create Automated tests for CI/CD
+
     - Gain skills about PS exceptions management and use them
+
     - Create GUI to create the DRS rules file.
+
     - Enforce max length of the rule names (Max rulename size is 80 char.
       You can Limit your tags to 29 chars to avoid any issue)
+
     - Tool to create the configuration from existing, manually made DRS settings ?
     
 English text
     - Fix english text
+
     - Put all messages in vars
+    
     - Make messages more uniform
 
