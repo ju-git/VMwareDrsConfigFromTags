@@ -500,7 +500,7 @@ if ( $SkipDrsRulesFileValidation -eq $false )
 
       exit
     }
-    Write-Host "Rule Type Allowed."
+    Write-Host "  Rule Type Allowed."
 
 
     if ( $_.DrsRuleType -match "KeepSeparated" -or $_.DrsRuleType -match "KeepTogether" )
@@ -512,20 +512,21 @@ if ( $SkipDrsRulesFileValidation -eq $false )
       $newDrsRuleName = -join($prefixForDrsRules, $_.DrsVmGroup , " " , $_.DrsRuleType, " " , $_.DrsHostGroup )
     }
 
-    if ( $_.DrsVmGroup.Length -gt 29 )
-    {
-      Write-Host ""
-      Write-Warning "Length of the VM Group is > 29 char. To avoid any issue, avoid this."
-    }
-
-    if ( $_.DrsHostGroup.Length -gt 29 )
-    {
-      Write-Host ""
-      Write-Warning "Length of the Host Group is > 29 char. To avoid any issue, avoid this."
-    }
-
     if ( $newDrsRuleName.Length -gt 80 )
     {
+
+      if ( $_.DrsVmGroup.Length -gt 29 )
+      {
+        Write-Host ""
+        Write-Warning "Length of the VM Group is > 29 char. To avoid any issue, change this."
+      }
+  
+      if ( $_.DrsHostGroup.Length -gt 29 )
+      {
+        Write-Host ""
+        Write-Warning "Length of the Host Group is > 29 char. To avoid any issue, change this."
+      }
+
       Write-Host ""
       Write-Warning "Generated DRS rule name '$newDrsRuleName' is > 80 char."
       Write-Warning "DRS rule names are limited by the vCenter."
@@ -541,6 +542,10 @@ if ( $SkipDrsRulesFileValidation -eq $false )
       Write-Host ""
 
       exit
+    }
+    else
+    {
+      Write-Host "  Rule name's length is <80 char."
     }
     
     # No DRS group for rules where DrsHostGroup is empty.
