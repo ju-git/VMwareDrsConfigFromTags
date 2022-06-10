@@ -18,7 +18,7 @@
   
   The script is idempotent, when it's re-run, it will update what needed,
   or do nothing if nothing changed in the inputs.
-    
+
 ## FAQ : 
 
 Q: What is this script ?  
@@ -86,8 +86,11 @@ Original script :
 Julien AILHAUD
 Mail :    julien  at ailhaud dot  
  com
+
 LinkedIn  : Julien AILHAUD  https://www.linkedin.com/in/julien-ailhaud-ba6bb6/
+
 Facebook  : Julien AILHAUD  https://www.facebook.com/julien.ailhaud/
+
 Twitter   : @curbans https://twitter.com/curbans  
 (Don't use Twitter)
 
