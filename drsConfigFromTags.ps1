@@ -19,6 +19,10 @@ Software hosted at : https://github.com/ju-git/VMwareDrsConfigFromTags
 
 ==================== Changelog ==============================================
 
+Version : 2022.06.09.0001
+    - Bug Fix : The new Drs Rules were disabled at creation time
+    - Added rule length and tag length limits
+
 Version : 2022.06.07.0001
     - Skip Rules file check when the Delete option is used.
 
@@ -74,8 +78,6 @@ Core code
     - Create Automated tests for CI/CD
     - Gain skills about PS exceptions management and use them
     - Create GUI to create the DRS rules file.
-    - Enforce max length of the rule names (Max rulename size is 80 char.
-      You can Limit your tags to 29 chars to avoid any issue)
     - Tool to create the configuration from existing, manually made DRS settings ?
     
 English text
@@ -456,7 +458,10 @@ else
 
 #
 #
-# Browse loaded data to check that the rules file point to existing and affected tags
+# Browse loaded data to check that the rules file point to existing and affected tags.
+# Plus some other tests :
+#             - Rule name <= 80 char (Exit in error, as it's the maximum accepted by the vCenter)
+#             - Tag  name <= 29 char (Warning, as it can give rule names longer than 80 char)
 #
 # 
 
@@ -481,12 +486,62 @@ if ( $SkipDrsRulesFileValidation -eq $false )
 
     if ( @("MustNotRunOn", "ShouldNotRunOn", "MustRunOn", "ShouldRunOn" , "KeepTogether" , "KeepSeparated" ).Contains($_.DrsRuleType) -eq $false )
     {
+      Write-Host ""
       Write-Warning "This RuleType ($drsRuleTypeDisplay) is not an accepted type."
       Write-Error "Accepted types are : MustNotRunOn, ShouldNotRunOn, MustRunOn, ShouldRunOn, KeepTogether, KeepSeparated"
+
+      Write-Host ""
+      Write-Host "vCenter"
+      Disconnect-VIServer -Server $vcsaToConnect -Confirm:$false 
+      Write-Host "Disconnected from vCenter : $vcsaToConnect"
+      Write-Host ""
+      Write-Host "End of script."
+      Write-Host ""
+
       exit
     }
     Write-Host "Rule Type Allowed."
-    
+
+
+    if ( $_.DrsRuleType -match "KeepSeparated" -or $_.DrsRuleType -match "KeepTogether" )
+    {
+      $newDrsRuleName = -join($prefixForDrsRules, $_.DrsRuleType, " " , $_.DrsVmGroup )
+    }
+    else
+    {
+      $newDrsRuleName = -join($prefixForDrsRules, $_.DrsVmGroup , " " , $_.DrsRuleType, " " , $_.DrsHostGroup )
+    }
+
+    if ( $_.DrsVmGroup.Length -gt 29 )
+    {
+      Write-Host ""
+      Write-Warning "Length of the VM Group is > 29 char. To avoid any issue, avoid this."
+    }
+
+    if ( $_.DrsHostGroup.Length -gt 29 )
+    {
+      Write-Host ""
+      Write-Warning "Length of the Host Group is > 29 char. To avoid any issue, avoid this."
+    }
+
+    if ( $newDrsRuleName.Length -gt 80 )
+    {
+      Write-Host ""
+      Write-Warning "Generated DRS rule name '$newDrsRuleName' is > 80 char."
+      Write-Warning "DRS rule names are limited by the vCenter."
+      Write-Error "The generated rule name is too long. Exiting."
+
+       
+      Write-Host ""
+      Write-Host "vCenter"
+      Disconnect-VIServer -Server $vcsaToConnect -Confirm:$false 
+      Write-Host "Disconnected from vCenter : $vcsaToConnect"
+      Write-Host ""
+      Write-Host "End of script."
+      Write-Host ""
+
+      exit
+    }
     
     # No DRS group for rules where DrsHostGroup is empty.
     if ( $_.DrsHostGroup.Length -lt 1 )
@@ -856,7 +911,7 @@ $drsRulesFiltered | ForEach-Object  {
     }
     else
     {
-      New-DrsRule -Name $newDrsRuleName -VM $vmsWithCurrentTag -Cluster $_.DrsClusterName -Enabled:$boolDrsRuleEnabled -KeepTogether:$keepTogetherOption  | Out-Null
+      New-DrsRule -Name $newDrsRuleName -VM $vmsWithCurrentTag -Cluster $_.DrsClusterName -Enabled $boolDrsRuleEnabled -KeepTogether $keepTogetherOption  | Out-Null
       Write-Host "  Creating new rule '$newDrsRuleName'."
     }
     
